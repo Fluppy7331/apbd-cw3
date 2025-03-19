@@ -7,16 +7,18 @@ public class Container
     private double contWeight;
     private double depth;
     private string serialNumber;
+    private static int counter = 0;
     private double maxLoadWeight;
 
-    public Container(double loadWeight, double height, double contWeight, double depth, string serialNumber,
+    public Container(double loadWeight, double height, double contWeight, double depth, 
         double maxLoadWeight)
     {
         this.loadWeight = loadWeight;
         this.height = height;
         this.contWeight = contWeight;
         this.depth = depth;
-        this.serialNumber = serialNumber;
+        counter++;
+        this.serialNumber = "KON-";
         this.maxLoadWeight = maxLoadWeight;
         if (this.loadWeight > this.maxLoadWeight)
             throw new OverfillException("Przekroczono maksymalny udzwig");
