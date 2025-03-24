@@ -1,43 +1,37 @@
 ﻿namespace cwiczenia3;
 
-public class Container
+public abstract class Container
 {
-    private double loadWeight;
-    private double height;
-    private double contWeight;
-    private double depth;
-    private string serialNumber;
-    private static int counter = 0;
-    private double maxLoadWeight;
+    public double Load { get; set; }
+    public string SerialNumber { get; }
+    protected static int Counter;
+    protected double MaxLoad { get;}
 
-    public Container(double loadWeight, double height, double contWeight, double depth, 
-        double maxLoadWeight)
+    public Container(string type, double maxLoad)
     {
-        this.loadWeight = loadWeight;
-        this.height = height;
-        this.contWeight = contWeight;
-        this.depth = depth;
-        counter++;
-        this.serialNumber = "KON-";
-        this.maxLoadWeight = maxLoadWeight;
-        if (this.loadWeight > this.maxLoadWeight)
-            throw new OverfillException("Przekroczono maksymalny udzwig");
+        Counter++;
+        SerialNumber = $"KON-{type}-{Counter}";
+        MaxLoad = maxLoad;
     }
 
-    public void UnloadContainer()
+    public virtual void UnloadContainer()
     {
-        this.loadWeight = 0;
+        Load = 0;
     }
 
-    public virtual void LoadContainer(double newLoadWeight)
+    public virtual void LoadContainer(double newLoad)
     {
-        if (loadWeight + this.loadWeight < this.maxLoadWeight)
-            this.loadWeight = this.loadWeight + loadWeight;
+        if (Load + newLoad < MaxLoad)
+            Load += newLoad;
         else
         {
             throw new OverfillException("Nie można wiecej załadować");
         }
         
+    }
+    public virtual void PrintInfo()
+    {
+        Console.WriteLine($"Container {SerialNumber}: {Load}kg / {MaxLoad}kg");
     }
     
     
